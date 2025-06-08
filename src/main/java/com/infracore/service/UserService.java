@@ -68,6 +68,11 @@ public class UserService implements UserDetailsService {
     }
 
     @Transactional
+    public User saveUser(User user) {
+        return userRepository.save(user);
+    }
+
+    @Transactional
     public Optional<UserDTO> updateUser(Long id, UserDTO userDTO) {
         return userRepository.findById(id)
                 .map(existingUser -> {

@@ -3,6 +3,8 @@ package com.infracore.dto;
 import com.infracore.entity.User;
 import lombok.Data;
 
+import java.util.Set;
+
 @Data
 public class UserDTO {
     private Long id;
@@ -10,8 +12,9 @@ public class UserDTO {
     private String email;
     private String firstName;
     private String lastName;
-    private User.UserStatus status;
     private boolean enabled;
+    private boolean isActive;
+    private Set<String> roles;
 
     public static UserDTO fromEntity(User user) {
         UserDTO dto = new UserDTO();
@@ -20,8 +23,9 @@ public class UserDTO {
         dto.setEmail(user.getEmail());
         dto.setFirstName(user.getFirstName());
         dto.setLastName(user.getLastName());
-        dto.setStatus(user.getStatus());
         dto.setEnabled(user.isEnabled());
+        dto.setActive(user.isActive());
+        dto.setRoles(user.getRoleNames());
         return dto;
     }
 } 

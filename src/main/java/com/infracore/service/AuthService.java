@@ -5,8 +5,10 @@ import com.infracore.dto.LoginResponse;
 import com.infracore.dto.RegistrationRequest;
 import com.infracore.dto.RegistrationResponse;
 import com.infracore.dto.UserDTO;
+import com.infracore.entity.Role;
 import com.infracore.entity.User;
 import com.infracore.exception.UserAlreadyExistsException;
+import com.infracore.repository.RoleRepository;
 import com.infracore.security.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -21,6 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class AuthService {
 
     private final UserService userService;
+    private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtTokenProvider jwtTokenProvider;
     private final AuthenticationManager authenticationManager;
@@ -42,7 +45,12 @@ public class AuthService {
         user.setFirstName(request.getFirstName());
         user.setLastName(request.getLastName());
         user.setEnabled(true);
-        user.setStatus(User.UserStatus.ACTIVE);
+        user.setActive(true);
+
+        // Assign default USER role
+        Role userRole = roleRepository.findByName(Role.RoleName.USER)
+                .orElseThrow(() -> new RuntimeException("Default USER role not found"));
+        user.addRole(userRole);
 
         User savedUser = userService.createUser(user);
         
@@ -81,5 +89,40 @@ public class AuthService {
                 .accessToken(token)
                 .user(userDTO)
                 .build();
+    }
+
+    @Transactional
+    public void createAdminUser() {
+        if (!userService.existsByUsername("admin")) {
+            User adminUser = new User();
+            adminUser.setUsername("admin");
+            adminUser.setPassword(passwordEncoder.encode("admin123"));
+            adminUser.setEmail("admin@lawportal.com");
+            adminUser.setFirstName("Admin");
+            adminUser.setLastName("User");
+            adminUser.setEnabled(true);
+            adminUser.setActive(true);
+            
+            // Assign ADMIN role
+            Role adminRole = roleRepository.findByName(Role.RoleName.ADMIN)
+                    .orElseThrow(() -> new RuntimeException("ADMIN role not found"));
+            adminUser.addRole(adminRole);
+            
+            userService.createUser(adminUser);
+        }
+    }
+
+    @Transactional
+    public void initializeRoles() {
+        // Create default roles if they don't exist
+        for (Role.RoleName roleName : Role.RoleName.values()) {
+            if (!roleRepository.existsByName(roleName)) {
+                Role role = new Role();
+                role.setName(roleName);
+                role.setDescription(roleName.name() + " role");
+                role.setIsActive(true);
+                roleRepository.save(role);
+            }
+        }
     }
 } 
