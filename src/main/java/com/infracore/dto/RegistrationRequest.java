@@ -1,50 +1,30 @@
-package com.infracore.entity;
+package com.infracore.dto;
 
-import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 @Data
-@EqualsAndHashCode(callSuper = true)
-@Entity
-@Table(name = "users")
-public class User extends BaseEntity {
+public class RegistrationRequest {
 
     @NotBlank(message = "Username is required")
     @Size(min = 4, max = 50, message = "Username must be between 4 and 50 characters")
-    @Column(nullable = false, unique = true)
     private String username;
 
     @NotBlank(message = "Password is required")
-    @Column(nullable = false)
+    @Size(min = 6, message = "Password must be at least 6 characters")
     private String password;
 
     @NotBlank(message = "Email is required")
     @Email(message = "Invalid email format")
-    @Column(nullable = false, unique = true)
     private String email;
 
     @NotBlank(message = "First name is required")
     @Size(max = 50, message = "First name cannot exceed 50 characters")
-    @Column(nullable = false)
     private String firstName;
 
     @NotBlank(message = "Last name is required")
     @Size(max = 50, message = "Last name cannot exceed 50 characters")
-    @Column(nullable = false)
     private String lastName;
-
-    @Column(nullable = false)
-    private boolean enabled = true;
-
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private UserStatus status = UserStatus.ACTIVE;
-
-    public enum UserStatus {
-        ACTIVE, INACTIVE, LOCKED
-    }
-}
+} 

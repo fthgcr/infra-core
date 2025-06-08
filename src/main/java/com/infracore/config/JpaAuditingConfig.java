@@ -1,13 +1,29 @@
 package com.infracore.config;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.domain.AuditorAware;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import java.util.Optional;
+
 @Configuration
-@EnableJpaAuditing
-@EnableJpaRepositories(basePackages = "com.infracore.repository")
+@EnableJpaAuditing(auditorAwareRef = "auditorProvider")
 @EnableTransactionManagement
 public class JpaAuditingConfig {
+
+    @Bean
+    public AuditorAware<String> auditorProvider() {
+        return () -> {
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            if (authentication == null || !authentication.isAuthenticated() || 
+                "anonymousUser".equals(authentication.getPrincipal())) {
+                return Optional.of("system");
+            }
+            return Optional.of(authentication.getName());
+        };
+    }
 }
