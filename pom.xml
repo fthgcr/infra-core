@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>org.infra-core</groupId>
 	<artifactId>infra-core</artifactId>
-	<version>0.0.38-SNAPSHOT</version>
+	<version>0.0.39-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<name>infra-core</name>
 	<description>Infrastructure Core Library - Auth, Security, Common Entities</description>
