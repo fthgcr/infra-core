@@ -1,5 +1,6 @@
 package com.infracore.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -24,6 +25,7 @@ public class User extends BaseEntity {
 
     @NotBlank(message = "Password is required")
     @Column(nullable = false)
+    @JsonIgnore
     private String password;
 
     @NotBlank(message = "Email is required")
@@ -46,6 +48,15 @@ public class User extends BaseEntity {
 
     @Column(name = "is_active")
     private boolean isActive = true;
+
+    @Column
+    private String phoneNumber;
+
+    @Column
+    private String address;
+
+    @Column(length = 2000)
+    private String notes;
 
     @Column(name = "created_date")
     private LocalDateTime createdDate;

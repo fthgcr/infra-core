@@ -1,5 +1,6 @@
 package com.infracore.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.GeneratedValue;
@@ -28,23 +29,29 @@ public abstract class BaseEntity {
     private Long id;
 
     @Version
+    @JsonIgnore
     private Long version;
 
     @CreatedDate
     @Column(nullable = false, updatable = false)
+    @JsonIgnore
     private LocalDateTime createdDate;
 
     @LastModifiedDate
     @Column(nullable = false)
+    @JsonIgnore
     private LocalDateTime lastModifiedDate;
 
     @CreatedBy
     @Column(updatable = false)
+    @JsonIgnore
     private String createdBy;
 
     @LastModifiedBy
+    @JsonIgnore
     private String lastModifiedBy;
 
     @Column(nullable = false)
+    @JsonIgnore
     private boolean deleted = false;
 }
