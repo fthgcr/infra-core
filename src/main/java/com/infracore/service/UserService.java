@@ -118,6 +118,11 @@ public class UserService implements UserDetailsService {
     }
 
     @Transactional(readOnly = true)
+    public Optional<User> findByIdEntity(Long id) {
+        return userRepository.findById(id);
+    }
+
+    @Transactional(readOnly = true)
     public Optional<UserDTO> getUserByUsername(String username) {
         return userRepository.findByUsername(username)
                 .map(this::convertToDTO);

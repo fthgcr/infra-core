@@ -23,14 +23,12 @@ public class User extends BaseEntity {
     @Column(nullable = false, unique = true)
     private String username;
 
-    @NotBlank(message = "Password is required")
     @Column(nullable = false)
     @JsonIgnore
     private String password;
 
-    @NotBlank(message = "Email is required")
     @Email(message = "Invalid email format")
-    @Column(nullable = false, unique = true)
+    @Column(nullable = true, unique = true)
     private String email;
 
     @NotBlank(message = "First name is required")
