@@ -90,8 +90,8 @@ public class JwtTokenProvider {
                     .parseClaimsJws(token);
             return true;
         } catch (Exception ex) {
-            // Log the exception for debugging
-            System.err.println("JWT validation failed: " + ex.getMessage());
+            // Log the exception for debugging (updated)
+            System.err.println("JWT validation error: " + ex.getMessage());
             return false;
         }
     }
