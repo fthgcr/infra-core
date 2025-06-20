@@ -1,4 +1,4 @@
-package com.infra_core;
+package com.infracore;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
