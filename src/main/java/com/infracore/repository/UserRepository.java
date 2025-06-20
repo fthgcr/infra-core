@@ -29,23 +29,16 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query("SELECT u FROM User u JOIN u.roles r WHERE r.name IN :roleNames AND u.enabled = true")
     List<User> findActiveUsersByRoleNames(@Param("roleNames") List<Role.RoleName> roleNames);
     
-    // Sadece avukatları getir
-    @Query("SELECT u FROM User u JOIN u.roles r WHERE r.name = 'LAWYER'")
-    List<User> findAllLawyers();
+    // Admin kullanıcıları getir
+    @Query("SELECT u FROM User u JOIN u.roles r WHERE r.name = 'ADMIN'")
+    List<User> findAllAdmins();
     
-    @Query("SELECT u FROM User u JOIN u.roles r WHERE r.name = 'LAWYER' AND u.enabled = true")
-    List<User> findActiveLawyers();
-    
-    // Sadece müvekkilleri getir
+    // Client kullanıcıları getir (USER rolündeki kullanıcılar müvekkil olarak kabul ediliyor)
     @Query("SELECT u FROM User u JOIN u.roles r WHERE r.name = 'USER'")
     List<User> findAllClients();
     
     @Query("SELECT u FROM User u JOIN u.roles r WHERE r.name = 'USER' AND u.enabled = true")
     List<User> findActiveClients();
-    
-    // Admin kullanıcıları getir
-    @Query("SELECT u FROM User u JOIN u.roles r WHERE r.name = 'ADMIN'")
-    List<User> findAllAdmins();
     
     // Belirli bir role sahip kullanıcı sayısı
     @Query("SELECT COUNT(u) FROM User u JOIN u.roles r WHERE r.name = :roleName")

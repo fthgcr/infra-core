@@ -46,9 +46,11 @@ public class Role {
     }
     
     public enum RoleName {
-        ADMIN,
-        USER,
-        LAWYER,
-        CLIENT
+        ADMIN,           // Sistem yöneticisi - her projede kullanılabilir
+        USER,            // Standart kullanıcı - her projede kullanılabilir
+        MANAGER,         // Yönetici - her projede kullanılabilir
+        EMPLOYEE,        // Çalışan - her projede kullanılabilir
+        CLIENT,          // Müşteri/Kullanıcı - her projede kullanılabilir
+        GUEST            // Misafir kullanıcı - her projede kullanılabilir
     }
 } 
