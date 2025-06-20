@@ -79,12 +79,19 @@ public class JwtTokenProvider {
 
     public boolean validateToken(String token) {
         try {
+            // Better validation with null check
+            if (token == null || token.trim().isEmpty()) {
+                return false;
+            }
+            
             Jwts.parser()
                     .setSigningKey(secretKey)
                     .build()
                     .parseClaimsJws(token);
             return true;
         } catch (Exception ex) {
+            // Log the exception for debugging
+            System.err.println("JWT validation failed: " + ex.getMessage());
             return false;
         }
     }
