@@ -68,4 +68,9 @@ Infrastructure Core Library - Auth, Security, Common Entities for Spring Boot ap
 
 ## License
 
-This project is licensed under the MIT License. 
+This project is licensed under the MIT License.
+
+## Updates
+
+- ✅ GitHub Actions auto-deployment enabled
+- ✅ JWT validation improvements added 
