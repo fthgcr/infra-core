@@ -14,7 +14,7 @@
 	<packaging>jar</packaging>
 	<name>infra-core</name>
 	<description>Infrastructure Core Library - Auth, Security, Common Entities</description>
-	<url>https://github.com/fthgcr/infra-core-mvn</url>
+	<url>https://github.com/fthgcr/infra-core</url>
 	
 	<licenses>
 		<license>
@@ -32,9 +32,9 @@
 	</developers>
 	
 	<scm>
-		<connection>scm:git:git://github.com/fthgcr/infra-core-mvn.git</connection>
-		<developerConnection>scm:git:ssh://github.com:fthgcr/infra-core-mvn.git</developerConnection>
-		<url>https://github.com/fthgcr/infra-core-mvn/tree/main</url>
+		<connection>scm:git:git://github.com/fthgcr/infra-core.git</connection>
+		<developerConnection>scm:git:ssh://github.com:fthgcr/infra-core.git</developerConnection>
+		<url>https://github.com/fthgcr/infra-core/tree/main</url>
 	</scm>
 
 	<!-- GitHub Package Repository -->
@@ -42,7 +42,7 @@
 		<repository>
 			<id>github</id>
 			<name>GitHub OWNER Apache Maven Packages</name>
-			<url>https://maven.pkg.github.com/fthgcr/infra-core-mvn</url>
+			<url>https://maven.pkg.github.com/fthgcr/infra-core</url>
 		</repository>
 	</distributionManagement>
 
@@ -124,7 +124,6 @@
 						<path>
 							<groupId>org.projectlombok</groupId>
 							<artifactId>lombok</artifactId>
-							<version>${lombok.version}</version>
 						</path>
 					</annotationProcessorPaths>
 				</configuration>
