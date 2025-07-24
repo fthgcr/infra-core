@@ -2,6 +2,7 @@ package com.infracore.config;
 
 import com.infracore.security.JwtAuthenticationFilter;
 import com.infracore.security.JwtTokenProvider;
+import com.infracore.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
@@ -30,6 +31,8 @@ import java.util.Arrays;
 @ConditionalOnMissingBean(name = "lawSecurityConfig")
 public class SecurityConfig {
 
+    private final UserService userService;
+
     @Bean
     @ConditionalOnMissingBean
     public PasswordEncoder passwordEncoder() {
@@ -47,6 +50,11 @@ public class SecurityConfig {
             JwtTokenProvider jwtTokenProvider, 
             UserDetailsService userDetailsService) {
         return new JwtAuthenticationFilter(jwtTokenProvider, userDetailsService);
+    }
+
+    @Bean
+    public UserDetailsService userDetailsService() {
+        return username -> userService.loadUserByUsername(username);
     }
 
     @Bean
