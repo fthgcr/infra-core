@@ -89,6 +89,10 @@ public class JwtTokenProvider {
                     .build()
                     .parseClaimsJws(token);
             return true;
+        } catch (io.jsonwebtoken.ExpiredJwtException ex) {
+            // Re-throw ExpiredJwtException so it can be caught by the filter
+            System.err.println("JWT validation error: " + ex.getMessage());
+            throw ex;
         } catch (Exception ex) {
             // Log the exception for debugging (updated)
             System.err.println("JWT validation error: " + ex.getMessage());
